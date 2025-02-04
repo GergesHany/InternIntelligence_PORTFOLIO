@@ -4,6 +4,7 @@ const ContactSchema = new mongoose.Schema(
     {
         name: {
             type: String,
+            default: "Anonymous",
         },
         message: {
             type: String,
