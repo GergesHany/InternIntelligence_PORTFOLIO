@@ -1,8 +1,6 @@
 const Achievement = require('../models/Achievement');
 const validUrl = require('../validator/validUrl');
 
-
-// Create
 const createAchievement = async (req, res) => {
     const { title, description, PostUrl } = req.body;
     if (!title || !description) {
@@ -36,6 +34,10 @@ const createAchievement = async (req, res) => {
 const updateAchievement = async (req, res) => {
     const { id } = req.params;
     const {title, description, PostUrl} = req.body;
+
+    if (!id) {
+        return res.status(400).json({ message: 'Achievement ID is required' });
+    }
     
     if (!title || !description) {
         return res.status(400).json({ message: 'All fields are required' });
@@ -57,6 +59,15 @@ const updateAchievement = async (req, res) => {
         achievement.PostUrl = PostUrl;
 
         await achievement.save();
+        res.status(200).json({ 
+            message: 'Achievement updated successfully',
+            Achievement: {
+                id: achievement.id,
+                title: achievement.title,
+                description: achievement.description,
+                PostUrl: achievement.PostUrl
+            }
+        });
     }catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -65,7 +76,14 @@ const updateAchievement = async (req, res) => {
 
 const deleteAchievement = async (req, res) => {
     const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ message: 'Achievement ID is required' });
+    }
     try {
+        const achievement = await Achievement.findOne({ id });
+        if (!achievement) {
+            return res.status(404).json({ message: 'Achievement not found' });
+        }
         await Achievement.deleteOne({ id });
         res.status(200).json({ message: 'Achievement deleted successfully' });
     }catch (error) {
@@ -75,6 +93,9 @@ const deleteAchievement = async (req, res) => {
 
 const getAchievements = async (req, res) => {
     const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ message: 'Achievement ID is required' });
+    }        
     try {
         const achievement = await Achievement.findOne({ id });
         if (!achievement) {

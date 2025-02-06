@@ -19,6 +19,7 @@ app.use(cookieParser());
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
+const AchievementRoutes = require("./routes/AchievementRoutes");
 
 const PORT = process.env.PORT || 5000;
 app.get("/", (req, res) => {
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/achievements", AchievementRoutes);
 
 
 // Database connection and server start

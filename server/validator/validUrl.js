@@ -1,10 +1,6 @@
-const validUrl = (str) => {
-    try {
-        new URL(str); 
-        return true;
-    } catch (_) {
-        return false;
-    }
-};
+const urlRegex = new RegExp(/^(ftp|http|https):\/\/[^ "]+$/);
+const validUrl = (url) => {
+    return urlRegex.test(url);
+}
 
 module.exports = validUrl;
