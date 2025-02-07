@@ -20,7 +20,7 @@ const createAchievement = async (req, res) => {
         res.status(201).json({ 
             message: 'Achievement created successfully',
             Achievement: {
-                id: newAchievement.id,
+                id: newAchievement._id,
                 title: newAchievement.title,
                 description: newAchievement.description,
                 PostUrl: newAchievement.PostUrl
@@ -48,7 +48,7 @@ const updateAchievement = async (req, res) => {
     }
 
     try {
-        const achievement = await Achievement.findOne({ id });
+        const achievement = await Achievement.findOne({ _id: id });
 
         if (!achievement) {
             return res.status(404).json({ message: 'Achievement not found' });
@@ -62,7 +62,7 @@ const updateAchievement = async (req, res) => {
         res.status(200).json({ 
             message: 'Achievement updated successfully',
             Achievement: {
-                id: achievement.id,
+                id: achievement._id,
                 title: achievement.title,
                 description: achievement.description,
                 PostUrl: achievement.PostUrl
@@ -80,11 +80,11 @@ const deleteAchievement = async (req, res) => {
         return res.status(400).json({ message: 'Achievement ID is required' });
     }
     try {
-        const achievement = await Achievement.findOne({ id });
+        const achievement = await Achievement.findOne({ _id: id });
         if (!achievement) {
             return res.status(404).json({ message: 'Achievement not found' });
         }
-        await Achievement.deleteOne({ id });
+        await Achievement.deleteOne({ _id: id });
         res.status(200).json({ message: 'Achievement deleted successfully' });
     }catch (error) {
         res.status(500).json({ message: error.message });
@@ -97,7 +97,7 @@ const getAchievements = async (req, res) => {
         return res.status(400).json({ message: 'Achievement ID is required' });
     }        
     try {
-        const achievement = await Achievement.findOne({ id });
+        const achievement = await Achievement.findOne({ _id: id });
         if (!achievement) {
             return res.status(404).json({ message: 'Achievement not found' });
         }
