@@ -22,6 +22,7 @@ const authRoutes = require("./routes/authRoutes");
 const AchievementRoutes = require("./routes/AchievementRoutes");
 const ProjectRoutes = require("./routes/ProjectRoutes");
 const SkillRoutes = require("./routes/SkillRoutes");
+const ContactRoutes = require("./routes/ContactRoutes");
 
 const PORT = process.env.PORT || 5000;
 app.get("/", (req, res) => {
@@ -32,6 +33,7 @@ app.use("/auth", authRoutes);
 app.use("/achievements", AchievementRoutes);
 app.use("/projects", ProjectRoutes);
 app.use("/skills", SkillRoutes);
+app.use("/contacts", ContactRoutes);
 
 
 // Database connection and server start
